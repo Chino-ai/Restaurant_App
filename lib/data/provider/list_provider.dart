@@ -4,26 +4,24 @@ import '../../utils/result_state.dart';
 import '../api/api_service.dart';
 
 
-
-
 class ListProvider extends ChangeNotifier{
   final ApiService apiService;
 
   ListProvider({required this.apiService}){
-    _fetchAllArticle();
+    fetchAllArticle();
   }
 
-  late GetRestaurant _getRestaurant;
-  late ResultState _state;
+   GetRestaurant? _getRestaurant;
+   ResultState? _state;
   String _message = '';
 
   String get message => _message;
 
-  GetRestaurant get result => _getRestaurant;
+  GetRestaurant? get result => _getRestaurant;
 
-  ResultState get state => _state;
+  ResultState? get state => _state;
 
-  Future<dynamic> _fetchAllArticle() async {
+  Future<dynamic> fetchAllArticle() async {
     try {
       _state = ResultState.loading;
       notifyListeners();

@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/data/api/api_service.dart';
-import 'package:restaurant_app/data/model/detail_restaurants.dart';
-import 'package:restaurant_app/data/model/get_restaurants.dart';
 import '../data/provider/list_provider.dart';
 import 'DetailPage.dart';
 import 'ListPage.dart';
 import 'SearchPage.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
