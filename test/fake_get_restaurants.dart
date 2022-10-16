@@ -1,7 +1,7 @@
 
 
-class GetRestaurant {
-  GetRestaurant({
+class Restaurant {
+  Restaurant({
     required this.error,
     required this.message,
     required this.count,
@@ -13,7 +13,7 @@ class GetRestaurant {
   int count;
   List<GRestaurant> restaurants;
 
-  factory GetRestaurant.fromJson(Map<String, dynamic> json) => GetRestaurant(
+  factory Restaurant.fromJson(Map<String, dynamic> json) => Restaurant(
     error: json["error"],
     message: json["message"],
     count: json["count"],
