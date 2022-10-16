@@ -1,4 +1,6 @@
 
+import 'dart:ffi';
+
 class GetRestaurant {
   GetRestaurant({
     required this.error,
@@ -19,6 +21,13 @@ class GetRestaurant {
     restaurants: List<GRestaurant>.from(json["restaurants"].map((x) => GRestaurant.fromJson(x))),
   );
 
+  Map<String,dynamic> toJson() =>{
+    "error": error,
+    "message": message,
+    "count" : count,
+    "restaurants": List<dynamic>.from(restaurants.map((x) => toJson()))
+  };
+
 
 }
 
@@ -37,7 +46,7 @@ class GRestaurant {
   String description;
   String pictureId;
   String city;
-  double rating;
+  String rating;
 
   factory GRestaurant.fromJson(Map<String, dynamic> json) => GRestaurant(
     id: json["id"],
@@ -45,8 +54,18 @@ class GRestaurant {
     description: json["description"],
     pictureId: json["pictureId"],
     city: json["city"],
-    rating: json["rating"].toDouble(),
+    rating:json["rating"].toString() ,
   );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "name": name,
+    "description": description,
+    "pictureId": pictureId,
+    "city": city,
+    "rating": rating.toString(),
+
+  };
 
 
 }

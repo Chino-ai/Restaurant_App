@@ -27,22 +27,20 @@ class SearchPage extends StatelessWidget {
                   onRefresh: (){return context.read<SearchProvider>().fetchAllArticle(controller.text);},
                   child: Scaffold(
                     appBar: AppBar(
-                      title: Text("Search Restaurant"),
+                      title: const Text("Search Restaurant"),
                     ),
                     body: ListView(
                         children: [
 
                           Padding(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 16.0, vertical: 8.0),
                             child: TextField(
                               onSubmitted: (String value) {
-
                                   context.read<SearchProvider>().fetchAllArticle(controller.text);
-
                               },
                               controller: controller,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 hintText: 'Tuliskan Nama Restoran...',
                                 labelText: 'Cari Restoran',
                               ),

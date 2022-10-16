@@ -39,6 +39,12 @@ dependencies:
   json_serializable: ^6.4.1
   http: ^0.13.5
   provider: ^6.0.4
+  sqflite: ^2.1.0+1
+  shared_preferences: ^2.0.15
+  intl: ^0.17.0
+  flutter_local_notifications: ^12.0.0
+  rxdart: ^0.27.5
+  android_alarm_manager_plus: ^2.0.7+1
 
 dev_dependencies:
   flutter_test:

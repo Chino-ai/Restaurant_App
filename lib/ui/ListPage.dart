@@ -1,16 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_app/data/db/database_helper.dart';
+import 'package:restaurant_app/data/provider/database_provider.dart';
 import 'package:restaurant_app/data/provider/list_provider.dart';
 import 'package:restaurant_app/ui/SearchPage.dart';
+import 'package:restaurant_app/ui/SettingPage.dart';
 import 'package:restaurant_app/utils/result_state.dart';
 import '../data/model/get_restaurants.dart';
+import '../utils/notification_helper.dart';
 import 'DetailPage.dart';
+import 'FavouritePage.dart';
 
 
-class ListPage extends StatelessWidget {
+class ListPage extends StatefulWidget {
   static const routeName = '/list_page';
   const ListPage({Key? key}) : super(key: key);
 
+  @override
+  State<ListPage> createState() => _ListPageState();
+
+}
+
+class _ListPageState extends State<ListPage> {
+  final NotificationHelper _notificationHelper = NotificationHelper();
+
+
+  @override
+  void initState() {
+    _notificationHelper.configureSelectNotificationSubject(
+        DetailPage.routeName);
+    super.initState();
+  }
+  @override
+  void dispose() {
+    selectNotificationSubject.close();
+    super.dispose();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Builder(
@@ -26,7 +52,21 @@ class ListPage extends StatelessWidget {
                           Navigator.pushNamed(context, SearchPage.routeName);
                         },
                         icon: const Icon(Icons.search)
-                    )
+                    ),
+
+                    IconButton(
+                        onPressed: (){
+                          Navigator.pushNamed(context, FavouritePage.routeName);
+                        },
+                        icon: const Icon(Icons.favorite)
+                    ),
+
+                    IconButton(
+                        onPressed: (){
+                          Navigator.pushNamed(context, SettingPage.routeName);
+                        },
+                        icon: const Icon(Icons.settings)
+                    ),
                   ],
                 ),
             body: ListView(
@@ -85,21 +125,52 @@ class ListPage extends StatelessWidget {
 }
 
 Widget _buildArticleItem(BuildContext context, GRestaurant restaurant) {
-  return ListTile(
-    onTap: (){
-      Navigator.pushNamed(context, DetailPage.routeName,
-          arguments: restaurant.id);
-    },
-    contentPadding:
-    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-    leading: Image.network(
-      "https://restaurant-api.dicoding.dev/images/small/${restaurant.pictureId}",
-      width: 100,
-    ),
-    title: Text(restaurant.name),
-    subtitle: Text(restaurant.city),
+  return Consumer<DatabaseProvider>(
+    builder: (context, provider, child) {
+      return FutureBuilder<bool>(
+        future: provider.isFavourite(restaurant.id),
+        builder: (context, snapshot) {
+          var isFavourited = snapshot.data ?? false;
+          return ListTile(
+            trailing: isFavourited ? 
+                IconButton(
+                    onPressed: () => provider.removeFavourite(restaurant.id), 
+                    icon: const Icon(Icons.favorite),
+                    color: Theme.of(context).colorScheme.secondary,
+                ) :
+            IconButton(
+              onPressed: () => provider.addFavourite(restaurant),
+              icon: const Icon(Icons.favorite_border),
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+                
+            onTap: () {
+              Navigator.pushNamed(context, DetailPage.routeName,
+                  arguments: restaurant.id);
+            },
+            contentPadding:
+            const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            leading: Image.network(
+              "https://restaurant-api.dicoding.dev/images/small/${restaurant
+                  .pictureId}",
+              width: 100,
+            ),
+            title: Text(restaurant.name),
+            subtitle: Text(restaurant.city),
+          );
+
+        }
+      );
+
+    }
   );
 }
+
+/*void notification(String ids){
+  final NotificationHelper _notificationHelper = NotificationHelper();
+  _notificationHelper.configureSelectNotificationSubject(
+      DetailPage);
+}*/
 
 
 
