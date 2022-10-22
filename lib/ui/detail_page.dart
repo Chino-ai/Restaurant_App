@@ -32,6 +32,32 @@ class DetailPage extends StatelessWidget {
                     children: [
                       Image.network("https://restaurant-api.dicoding.dev/images/small/${restaurant.pictureId}"),
                       const SizedBox(height: 10,),
+                      Align(
+                          alignment: Alignment.topLeft,
+                          child: Text("Nama : ${restaurant.name}")
+                      ),
+                      const SizedBox(height: 10,),
+                      Align(
+                          alignment: Alignment.topLeft,
+                          child: Text("Rating : ${restaurant.rating}")
+                      ),
+                      const SizedBox(height: 10,),
+                      Align(
+                          alignment: Alignment.topLeft,
+                          child: Text("Alamat : ${restaurant.address}")
+                      ),
+
+                      const SizedBox(height: 10,),
+                      const Align(
+                          alignment: Alignment.topLeft,
+                          child: Text("Deskripsi :")
+                      ),
+                      const SizedBox(height: 10,),
+                      Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(restaurant.description)
+                      ),
+                      const SizedBox(height: 10,),
                       const Align(
                           alignment: Alignment.topLeft,
                           child: Text("Foods : ",

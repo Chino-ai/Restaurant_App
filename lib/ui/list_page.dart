@@ -3,13 +3,13 @@ import 'package:provider/provider.dart';
 import 'package:restaurant_app/data/db/database_helper.dart';
 import 'package:restaurant_app/data/provider/database_provider.dart';
 import 'package:restaurant_app/data/provider/list_provider.dart';
-import 'package:restaurant_app/ui/SearchPage.dart';
-import 'package:restaurant_app/ui/SettingPage.dart';
+import 'package:restaurant_app/ui/search_page.dart';
+import 'package:restaurant_app/ui/setting_page.dart';
 import 'package:restaurant_app/utils/result_state.dart';
 import '../data/model/get_restaurants.dart';
 import '../utils/notification_helper.dart';
-import 'DetailPage.dart';
-import 'FavouritePage.dart';
+import 'detail_page.dart';
+import 'favourite_page.dart';
 
 
 class ListPage extends StatefulWidget {

@@ -6,7 +6,7 @@ import 'package:restaurant_app/data/model/search_restaurants.dart';
 import 'package:restaurant_app/data/provider/search_provider.dart';
 import 'package:restaurant_app/utils/result_state.dart';
 
-import 'DetailPage.dart';
+import 'detail_page.dart';
 
 
 class SearchPage extends StatelessWidget {

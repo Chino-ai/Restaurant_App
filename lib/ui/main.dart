@@ -8,8 +8,8 @@ import 'package:restaurant_app/data/api/api_service.dart';
 import 'package:restaurant_app/data/db/database_helper.dart';
 import 'package:restaurant_app/data/provider/database_provider.dart';
 import 'package:restaurant_app/data/provider/scheduling_provider.dart';
-import 'package:restaurant_app/ui/FavouritePage.dart';
-import 'package:restaurant_app/ui/SettingPage.dart';
+import 'package:restaurant_app/ui/favourite_page.dart';
+import 'package:restaurant_app/ui/setting_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../common/navigation.dart';
 import '../data/preferences/preferences_helper.dart';
@@ -17,9 +17,9 @@ import '../data/provider/list_provider.dart';
 import '../data/provider/preferences_provider.dart';
 import '../utils/background_service.dart';
 import '../utils/notification_helper.dart';
-import 'DetailPage.dart';
-import 'ListPage.dart';
-import 'SearchPage.dart';
+import 'detail_page.dart';
+import 'list_page.dart';
+import 'search_page.dart';
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 FlutterLocalNotificationsPlugin();
 Future<void> main() async {

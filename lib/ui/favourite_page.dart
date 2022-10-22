@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import '../data/model/get_restaurants.dart';
 import '../data/provider/database_provider.dart';
 import '../utils/result_state.dart';
-import 'DetailPage.dart';
+import 'detail_page.dart';
 
 class FavouritePage extends StatelessWidget {
   static const routeName = '/favourite_page';
@@ -32,7 +32,7 @@ Widget _buildList() {
       } else {
         return Center(
           child: Material(
-            child: Text(provider.message),
+            child: Text("Daftar Favourit Kosong"),
           ),
         );
       }
