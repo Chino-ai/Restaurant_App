@@ -4,18 +4,42 @@ import 'package:provider/provider.dart';
 import 'package:restaurant_app/data/api/api_service.dart';
 import 'package:restaurant_app/data/model/search_restaurants.dart';
 import 'package:restaurant_app/data/provider/search_provider.dart';
+import 'package:restaurant_app/ui/setting_page.dart';
 import 'package:restaurant_app/utils/result_state.dart';
 
+import '../data/provider/database_provider.dart';
+import '../utils/notification_helper.dart';
 import 'detail_page.dart';
+import 'favourite_page.dart';
 
 
-class SearchPage extends StatelessWidget {
+class SearchPage extends StatefulWidget {
   static const routeName = '/search_page';
   SearchPage({Key? key}) : super(key: key);
 
+  @override
+  State<SearchPage> createState() => _SearchPageState();
+}
+
+class _SearchPageState extends State<SearchPage> {
     late String query;
 
    TextEditingController controller = TextEditingController();
+
+    final NotificationHelper _notificationHelper = NotificationHelper();
+
+
+    @override
+    void initState() {
+      _notificationHelper.configureSelectNotificationSubject(
+          DetailPage.routeName);
+      super.initState();
+    }
+    @override
+    void dispose() {
+      selectNotificationSubject.close();
+      super.dispose();
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +52,24 @@ class SearchPage extends StatelessWidget {
                   child: Scaffold(
                     appBar: AppBar(
                       title: const Text("Search Restaurant"),
+                      actions: [
+                        IconButton(
+                            onPressed: (){
+                              Navigator.pushNamed(context, FavouritePage.routeName);
+                            },
+                            icon: const Icon(Icons.favorite)
+                        ),
+
+                        IconButton(
+                            onPressed: (){
+                              Navigator.pushNamed(context, SettingPage.routeName);
+                            },
+                            icon: const Icon(Icons.settings)
+                        ),
+                      ],
                     ),
                     body: ListView(
                         children: [
-
                           Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 16.0, vertical: 8.0),
@@ -99,19 +137,44 @@ class SearchPage extends StatelessWidget {
 }
 
 Widget _buildArticleItem(BuildContext context, SRestaurant restaurant) {
-  return ListTile(
-    onTap: (){
-      Navigator.pushNamed(context, DetailPage.routeName,
-          arguments: restaurant.id);
-    },
-    contentPadding:
-    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-    leading: Image.network(
-      "https://restaurant-api.dicoding.dev/images/small/${restaurant.pictureId}",
-      width: 100,
-    ),
-    title: Text(restaurant.name),
-    subtitle: Text(restaurant.city),
+  return Consumer<DatabaseProvider>(
+      builder: (context, provider, child) {
+        return FutureBuilder<bool>(
+            future: provider.isFavourite(restaurant.id),
+            builder: (context, snapshot) {
+              var isFavourited = snapshot.data ?? false;
+              return ListTile(
+                trailing: isFavourited ?
+                IconButton(
+                  onPressed: () => provider.removeFavourite(restaurant.id),
+                  icon: const Icon(Icons.favorite),
+                  color: Theme.of(context).colorScheme.secondary,
+                ) :
+                IconButton(
+                  onPressed: () => provider.addFavourite(restaurant),
+                  icon: const Icon(Icons.favorite_border),
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+
+                onTap: () {
+                  Navigator.pushNamed(context, DetailPage.routeName,
+                      arguments: restaurant.id);
+                },
+                contentPadding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                leading: Image.network(
+                  "https://restaurant-api.dicoding.dev/images/small/${restaurant
+                      .pictureId}",
+                  width: 100,
+                ),
+                title: Text(restaurant.name),
+                subtitle: Text(restaurant.city),
+              );
+
+            }
+        );
+
+      }
   );
 }
 

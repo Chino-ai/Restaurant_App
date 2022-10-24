@@ -18,7 +18,6 @@ import '../data/provider/preferences_provider.dart';
 import '../utils/background_service.dart';
 import '../utils/notification_helper.dart';
 import 'detail_page.dart';
-import 'list_page.dart';
 import 'search_page.dart';
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 FlutterLocalNotificationsPlugin();
@@ -65,9 +64,8 @@ class MyApp extends StatelessWidget {
                   secondary: Colors.lightBlue,
                 )),
           navigatorKey: navigatorKey,
-        initialRoute: ListPage.routeName ,
+        initialRoute: SearchPage.routeName ,
         routes: {
-          ListPage.routeName: (context) => ListPage(),
           DetailPage.routeName: (context) => DetailPage(
               id: ModalRoute.of(context)?.settings.arguments as String
           ),

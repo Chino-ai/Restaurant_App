@@ -3,6 +3,7 @@ import 'package:restaurant_app/data/model/get_restaurants.dart';
 
 import '../../utils/result_state.dart';
 import '../db/database_helper.dart';
+import '../model/search_restaurants.dart';
 
 class DatabaseProvider extends ChangeNotifier {
   final DatabaseHelper databaseHelper;
@@ -17,8 +18,8 @@ class DatabaseProvider extends ChangeNotifier {
   String _message = '';
   String get message => _message;
 
-  List<GRestaurant> _favourites = [];
-  List<GRestaurant> get favourites => _favourites;
+  List<SRestaurant> _favourites = [];
+  List<SRestaurant> get favourites => _favourites;
 
   void _getFavourite() async {
     _favourites = await databaseHelper.getResto();
@@ -31,7 +32,7 @@ class DatabaseProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addFavourite(GRestaurant restaurant) async {
+  void addFavourite(SRestaurant restaurant) async {
     try {
       await databaseHelper.insertResto(restaurant);
       _getFavourite();

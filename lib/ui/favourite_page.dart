@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../data/model/get_restaurants.dart';
+import '../data/model/search_restaurants.dart';
 import '../data/provider/database_provider.dart';
 import '../utils/result_state.dart';
 import 'detail_page.dart';
@@ -41,7 +42,7 @@ Widget _buildList() {
 }
 
 
-Widget _buildArticleItem(BuildContext context, GRestaurant restaurant) {
+Widget _buildArticleItem(BuildContext context, SRestaurant restaurant) {
   return Consumer<DatabaseProvider>(
       builder: (context, provider, child) {
         return FutureBuilder<bool>(
