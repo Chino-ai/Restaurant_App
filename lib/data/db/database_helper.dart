@@ -1,7 +1,7 @@
-import 'package:restaurant_app/data/model/get_restaurants.dart';
+
 import 'package:sqflite/sqflite.dart';
 
-import '../model/search_restaurants.dart';
+import 'package:restaurant_app/data/model/restaurant.dart';
 
 class DatabaseHelper{
   static DatabaseHelper? _instance;
@@ -44,16 +44,16 @@ class DatabaseHelper{
 
     return _database;
   }
-  Future<void> insertResto(SRestaurant restaurant) async {
+  Future<void> insertResto(Restaurant restaurant) async {
     final db = await database;
     await db!.insert(_tblresto, restaurant.toJson());
   }
 
-  Future<List<SRestaurant>> getResto() async {
+  Future<List<Restaurant>> getResto() async {
     final db = await database;
     List<Map<String, dynamic>> results = await db!.query(_tblresto);
 
-    return results.map((res) => SRestaurant.fromJson(res)).toList();
+    return results.map((res) => Restaurant.fromJson(res)).toList();
   }
 
   Future<Map> getFavouriteById(String id) async {

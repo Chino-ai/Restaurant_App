@@ -11,14 +11,15 @@ import 'package:restaurant_app/data/provider/scheduling_provider.dart';
 import 'package:restaurant_app/ui/favourite_page.dart';
 import 'package:restaurant_app/ui/setting_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../common/navigation.dart';
-import '../data/preferences/preferences_helper.dart';
-import '../data/provider/list_provider.dart';
-import '../data/provider/preferences_provider.dart';
-import '../utils/background_service.dart';
-import '../utils/notification_helper.dart';
-import 'detail_page.dart';
-import 'search_page.dart';
+import 'common/navigation.dart';
+import 'data/preferences/preferences_helper.dart';
+import 'data/provider/list_provider.dart';
+import 'data/provider/preferences_provider.dart';
+import 'utils/background_service.dart';
+import 'utils/notification_helper.dart';
+import 'ui/ListPage.dart';
+import 'ui/detail_page.dart';
+import 'ui/search_page.dart';
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 FlutterLocalNotificationsPlugin();
 Future<void> main() async {
@@ -64,8 +65,9 @@ class MyApp extends StatelessWidget {
                   secondary: Colors.lightBlue,
                 )),
           navigatorKey: navigatorKey,
-        initialRoute: SearchPage.routeName ,
+        initialRoute: ListPage.routeName ,
         routes: {
+          ListPage.routeName: (context) => ListPage(),
           DetailPage.routeName: (context) => DetailPage(
               id: ModalRoute.of(context)?.settings.arguments as String
           ),

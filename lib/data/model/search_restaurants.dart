@@ -1,3 +1,7 @@
+
+
+import 'package:restaurant_app/data/model/restaurant.dart';
+
 class SearchRestaurant {
   SearchRestaurant({
     required this.error,
@@ -7,51 +11,17 @@ class SearchRestaurant {
 
   bool error;
   int founded;
-  List<SRestaurant> restaurants;
+  List<Restaurant> restaurants;
 
   factory SearchRestaurant.fromJson(Map<String, dynamic> json) => SearchRestaurant(
     error: json["error"],
     founded: json["founded"],
-    restaurants: List<SRestaurant>.from(json["restaurants"].map((x) => SRestaurant.fromJson(x))),
+    restaurants: List<Restaurant>.from(json["restaurants"].map((x) => Restaurant.fromJson(x))),
   );
 
 
 }
 
-class SRestaurant {
-  SRestaurant({
-    required this.id,
-    required this.name,
-    required this.description,
-    required this.pictureId,
-    required this.city,
-    required this.rating,
-  });
 
-  String id;
-  String name;
-  String description;
-  String pictureId;
-  String city;
-  double rating;
 
-  factory SRestaurant.fromJson(Map<String, dynamic> json) => SRestaurant(
-    id: json["id"],
-    name: json["name"],
-    description: json["description"],
-    pictureId: json["pictureId"],
-    city: json["city"],
-    rating: json["rating"].toDouble(),
-  );
 
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "description": description,
-    "pictureId": pictureId,
-    "city": city,
-    "rating": rating.toString(),
-
-  };
-
-}

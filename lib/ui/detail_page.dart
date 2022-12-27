@@ -11,6 +11,7 @@ class DetailPage extends StatelessWidget {
 
   const DetailPage({Key? key, required this.id}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(

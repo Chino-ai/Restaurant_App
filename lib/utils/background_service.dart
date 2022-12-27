@@ -3,7 +3,7 @@ import 'dart:isolate';
 import 'dart:ui';
 
 import 'package:restaurant_app/data/api/api_service.dart';
-import 'package:restaurant_app/ui/main.dart';
+import 'package:restaurant_app/main.dart';
 import 'package:restaurant_app/utils/notification_helper.dart';
 
 final ReceivePort port = ReceivePort();

@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/data/api/api_service.dart';
-import 'package:restaurant_app/data/model/search_restaurants.dart';
+import 'package:restaurant_app/data/model/restaurant.dart';
 import 'package:restaurant_app/data/provider/search_provider.dart';
 import 'package:restaurant_app/ui/setting_page.dart';
 import 'package:restaurant_app/utils/result_state.dart';
@@ -13,33 +13,13 @@ import 'detail_page.dart';
 import 'favourite_page.dart';
 
 
-class SearchPage extends StatefulWidget {
+class SearchPage extends StatelessWidget {
   static const routeName = '/search_page';
   SearchPage({Key? key}) : super(key: key);
 
-  @override
-  State<SearchPage> createState() => _SearchPageState();
-}
-
-class _SearchPageState extends State<SearchPage> {
     late String query;
 
    TextEditingController controller = TextEditingController();
-
-    final NotificationHelper _notificationHelper = NotificationHelper();
-
-
-    @override
-    void initState() {
-      _notificationHelper.configureSelectNotificationSubject(
-          DetailPage.routeName);
-      super.initState();
-    }
-    @override
-    void dispose() {
-      selectNotificationSubject.close();
-      super.dispose();
-    }
 
   @override
   Widget build(BuildContext context) {
@@ -52,21 +32,6 @@ class _SearchPageState extends State<SearchPage> {
                   child: Scaffold(
                     appBar: AppBar(
                       title: const Text("Search Restaurant"),
-                      actions: [
-                        IconButton(
-                            onPressed: (){
-                              Navigator.pushNamed(context, FavouritePage.routeName);
-                            },
-                            icon: const Icon(Icons.favorite)
-                        ),
-
-                        IconButton(
-                            onPressed: (){
-                              Navigator.pushNamed(context, SettingPage.routeName);
-                            },
-                            icon: const Icon(Icons.settings)
-                        ),
-                      ],
                     ),
                     body: ListView(
                         children: [
@@ -136,7 +101,7 @@ class _SearchPageState extends State<SearchPage> {
   }
 }
 
-Widget _buildArticleItem(BuildContext context, SRestaurant restaurant) {
+Widget _buildArticleItem(BuildContext context, Restaurant restaurant) {
   return Consumer<DatabaseProvider>(
       builder: (context, provider, child) {
         return FutureBuilder<bool>(
